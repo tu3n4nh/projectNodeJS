@@ -8,7 +8,7 @@ const port = 3000;
 
 const route = require('./routes/index.js'); // hoặc ./routes thôi vì nó tự nạp file index
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'resources', 'views')));
 
 //Create middleware
 app.use(
@@ -42,5 +42,5 @@ const db = require('./config/db');
 // Connect to db
 db.connect();
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`App listening on port ${port}`);
 });
