@@ -37,7 +37,10 @@ console.log(__dirname);
 
 // Routes initial
 route(app);
+const db = require('./config/db');
 
+// Connect to db
+db.connect();
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
