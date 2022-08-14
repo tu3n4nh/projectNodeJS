@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const methodOverride = require('method-override');
 const app = express();
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
@@ -18,6 +19,9 @@ app.use(
 );
 app.use(express.json());
 
+// override method
+app.use(methodOverride('_method'));
+
 //HTTP logger
 app.use(morgan('combined'));
 
@@ -26,6 +30,9 @@ app.engine(
     'hbs',
     engine({
         extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b,
+        },
     }),
 );
 app.set('view engine', 'hbs');
@@ -38,6 +45,9 @@ console.log(__dirname);
 // Routes initial
 route(app);
 const db = require('./config/db');
+
+// SASS routes
+app.use('/assets', express.static(path.join(__dirname, '/public')));
 
 // Connect to db
 db.connect();
