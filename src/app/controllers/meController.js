@@ -15,6 +15,21 @@ class meController {
             //khi promise không hoàn thành
             .catch(next);
     }
+
+    // [GET] /me/trash/courses
+    trashCourses(req, res, next) {
+        Course.findDeleted({}) // findDeleted để lấy dữ liệu trong db
+            //Khi promise hoàn thành
+            .then((courses) => {
+                courses = mutipleMongooseToObject(courses);
+                res.render('me/trashCourses', {
+                    // Đối số thứ nhất là đường dẫn đến file views
+                    courses, // Đối số thứ hai là dữ liệu muốn chuyển sang file views
+                });
+            }) // biến courses nhận giá trị trả về từ promise và được chuyển sang dạng object
+            //khi promise không hoàn thành
+            .catch(next);
+    }
 }
 
 module.exports = new meController();
